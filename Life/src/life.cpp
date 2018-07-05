@@ -122,8 +122,23 @@ void animatefile(string file, string frames){
 }
 
 // ARSHIN: implement this one
-// function that ticks file
+// Moves on to next generation and prints output to console
 void tickfile(string file) {
+
+    for	(int r = 0;	r <	grid.numRows();	r++) {
+        for	(int c = 0;	c <	grid.numCols();	c++) {
+            // do something with grid[r][c];
+
+            // compare with upper left diagonal
+            // compare with left
+            // compare with bottom left
+            // compare with bottom
+            // compare with bottom right
+            // compare with right
+            // compare with upper right
+            // compare with upper / top
+        }
+    }
     return;
 }
 
