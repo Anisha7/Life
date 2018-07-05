@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include "grid.h"
 
 using namespace std;
 
@@ -34,7 +35,14 @@ void printfile(string file) {
 }
 
 // file to grid function: -1 if dead, 0 if alive goes below
-Grid filetogrid(string file) {
+Grid<int> filetogrid(string file) {
+    ifstream stream(file);
+
+    // test if file is opened
+    if (!stream) {
+        cout << "Unable to open that file.  Try again.";
+    }
+
     string content;
 
     while(!stream.eof() & content != "#") {
@@ -45,6 +53,8 @@ Grid filetogrid(string file) {
             // add -1 or 0 to grid at that position
         }
     }
+
+    return Grid<int>(2,3);
 }
 
 // ARSHIN: implement this one
