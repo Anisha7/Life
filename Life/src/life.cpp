@@ -183,7 +183,7 @@ void atq(Grid<int> grid){
             animatefile(grid, frames);
 
         } else if (usercommand == "t") {
-            tickfile(file);
+            tickfile(grid);
         }
         // ask again for a command
         atq(grid);
