@@ -54,10 +54,14 @@ Grid<int> filetogrid(string file) {
     string content;
 
     // get grid dimensions
-    // std:stoi convers string to int
-    // does not work: find better way
-    //row = stream >> content;
-    //col = stream >> content;
+    // std:stoi converts string to int
+    stream >> content;
+    int row = stoi(content);
+    stream >> content;
+    int col = stoi(content);
+    Grid<int> sol;
+
+    cout << "Row: " << row << ", Col: " << col << "\n" << endl;
 
     // grid minimum size = 3x3
     // if (row < 3) { row = 3; }
