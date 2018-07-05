@@ -38,13 +38,29 @@ void printfile(string file) {
 Grid<int> filetogrid(string file) {
     ifstream stream(file);
 
+
+
     // test if file is opened
     if (!stream) {
         cout << "Unable to open that file.  Try again.";
     }
 
+    // stores read data
     string content;
 
+    // get grid dimensions
+    // std:stoi convers string to int
+    int row = std::stoi( stream >> content );
+    int col = std::stoi( stream >> content );
+
+    // grid minimum size = 3x3
+    if (row < 3) { row = 3; }
+    if (col < 3) { col = 3; }
+
+    // create solution grid
+    Grid<int> sol = Grid<int>(row, col);
+
+    // process file data
     while(!stream.eof() & content != "#") {
         stream >> content; // first line of file
         if (content != "#") {
@@ -54,7 +70,7 @@ Grid<int> filetogrid(string file) {
         }
     }
 
-    return Grid<int>(2,3);
+    return sol;
 }
 
 // ARSHIN: implement this one
@@ -65,8 +81,7 @@ void animatefile(string file, string frames){
     return;
 }
 
-// ARSHIN: comment out how/what this function should do
-// I'll implement it
+// ARSHIN
 // function that ticks file
 void tickfile(string file) {
     return;
@@ -103,28 +118,34 @@ int main() {
     cout << "a)nimate, t)ick, q)uit?";
     cin >> usercommand;
 
-    if (usercommand == "a") {
-        string frames;
-        cout << "How many frames?";
-        cin >> frames;
-
-        // check if valid int
-        while (!isdigit(frames[0])) {
-            cout << "Illegal integer format. Try again.";
-            cout << "\r\n";
+    while (usercommand != "q") {
+        if (usercommand == "a") {
+            string frames;
             cout << "How many frames?";
             cin >> frames;
+
+            // check if valid int
+            while (!isdigit(frames[0])) {
+                cout << "Illegal integer format. Try again.";
+                cout << "\r\n";
+                cout << "How many frames?";
+                cin >> frames;
+            }
+
+            animatefile(file, frames);
+
+        } else if (usercommand == "t") {
+            tickfile(file);
         }
-
-        animatefile(file, frames);
-
-    } else if (usercommand == "t") {
-        tickfile(file);
-    } else {
+        // ask again for a command
+        cout << "a)nimate, t)ick, q)uit?";
+        cin >> usercommand;
+    }
+    if (usercommand == "q") {
         quitfile(file);
     }
 
-
+    // reached end of code
     cout << "testpass";
 
     return 0;
