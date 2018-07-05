@@ -15,6 +15,7 @@
 using namespace std;
 
 // function that prints file
+// COMPLETED!!
 void printfile(string file) {
     ifstream stream(file);
 
@@ -37,6 +38,7 @@ void printfile(string file) {
 
 }
 
+// ARSHIN: finish this function
 // file to grid function: -1 if dead, 0 if alive goes below
 Grid<int> filetogrid(string file) {
     ifstream stream(file);
@@ -86,19 +88,20 @@ void animatefile(string file, string frames){
     return;
 }
 
-// ARSHIN
+// ARSHIN: implement this one
 // function that ticks file
 void tickfile(string file) {
     return;
 }
 
-// ARSHIN: implement this one!
 // function that quits file
-void quitfile(string file) {
+// COMPLETED!!
+void quitfile() {
     return;
 }
 
 // asks and processes a,t,q requests
+// COMPLETED!!
 void atq(string file){
     // asks user for a, t, q
     string usercommand;
@@ -129,7 +132,7 @@ void atq(string file){
     }
 
     if (usercommand == "q") {
-        quitfile(file);
+        quitfile();
         return;
     }
 
@@ -137,6 +140,7 @@ void atq(string file){
 }
 
 // runs commands
+// COMPLETED!!
 void run() {
     string file;
     cout << "Grid input file name? ";
@@ -148,6 +152,8 @@ void run() {
     return;
 }
 
+// Asks to restart game
+// COMPLETED!!
 string restart() {
     string q2;
     cout << "Load another file? (y/n)";
@@ -157,6 +163,7 @@ string restart() {
 }
 
 // main function: handles all prints and runs all functions
+// COMPLETED!!
 int main() {
     // TODO: Finish the program!
 
