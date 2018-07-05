@@ -113,17 +113,7 @@ Grid<int> filetogrid(string file) {
     return sol;
 }
 
-// ARSHIN: implement this one
-// function that animates file
-// show new generations (= # of frames) with
-// screen clear and 100ms pause before each
-void animatefile(Grid<int> grid, string frames){
-    int tickcount = stoi(frames);
-    for (int i = 0; i < tickcount; i++) {
-        tickfile(grid);
-    }
-    return;
-}
+
 
 // ARSHIN: implement this one
 // Moves on to next generation and prints output to console
@@ -142,6 +132,17 @@ void tickfile(Grid<int> grid) {
             // compare with upper right
             // compare with upper / top
         }
+    }
+    return;
+}
+
+// function that animates file
+// show new generations (= # of frames) with
+// screen clear and 100ms pause before each
+void animatefile(Grid<int> grid, string frames){
+    int tickcount = stoi(frames);
+    for (int i = 0; i < tickcount; i++) {
+        tickfile(grid);
     }
     return;
 }
