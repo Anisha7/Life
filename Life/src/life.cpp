@@ -1,4 +1,4 @@
-// This is the CPP file you will edit and turn in. (Remove this comment!)
+// by Anisha Jain and Arshin Jain
 
 #include <iostream>
 #include "console.h"
