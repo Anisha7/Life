@@ -117,7 +117,11 @@ Grid<int> filetogrid(string file) {
 // function that animates file
 // show new generations (= # of frames) with
 // screen clear and 100ms pause before each
-void animatefile(string file, string frames){
+void animatefile(Grid<int> grid, string frames){
+    int tickcount = stoi(frames);
+    for (int i = 0; i < tickcount; i++) {
+        tickfile(grid);
+    }
     return;
 }
 
