@@ -26,12 +26,23 @@ void printfile(string file) {
 
     string content;
 
-    while(!stream.eof() & content != "#") {
+    stream >> content;
+    int row = stoi(content);
+    stream >> content;
+    int col = stoi(content);
+
+    if (row < 3) {
+        row = 3;
+    }
+
+    if (col < 3) {
+        col = 3;
+    }
+
+    for (int r = 0; r < row; r++) {
         stream >> content;
-        if (content != "#") {
-            cout << content;
-            cout << "\r\n";
-        }
+        cout << content;
+        cout << "\r\n";
     }
 
     return;
@@ -43,7 +54,7 @@ void printfile(string file) {
 Grid<int> filetogrid(string file) {
     ifstream stream(file);
 
-    cout << "File To Grid Function: " << endl;
+    //cout << "File To Grid Function: " << endl;
 
     // test if file is opened
     if (!stream) {
@@ -61,7 +72,7 @@ Grid<int> filetogrid(string file) {
     int col = stoi(content);
     Grid<int> sol;
 
-    cout << "Row: " << row << ", Col: " << col << "\n" << endl;
+    //cout << "Row: " << row << ", Col: " << col << "\n" << endl;
 
     // grid minimum size = 3x3
     // if (row < 3) { row = 3; }
@@ -87,7 +98,7 @@ Grid<int> filetogrid(string file) {
 
         // for each col
         for (int j = 0; j < col; j++) {
-            cout << "j: " << content[j] << endl;
+            //cout << "j: " << content[j] << endl;
             if (content[j] == '-') {
                 sol[i][j] = -1;
             } else if (content[j] == '+') {
@@ -96,14 +107,14 @@ Grid<int> filetogrid(string file) {
         }
     }
 
-    cout << sol << endl;
+    //cout << sol << endl;
 
     // process file data
     while(!stream.eof() & content != "#") {
         stream >> content; // first line of file
         if (content != "#") {
             // break line string into individual strings
-            // add -1 or 0 to grid at that position
+            // add 1 or 0 to grid at that position
             //cout << content << "\n";
         }
     }
@@ -113,16 +124,13 @@ Grid<int> filetogrid(string file) {
     return sol;
 }
 
-// ARSHIN: implement this one
-// function that animates file
-// show new generations (= # of frames) with
-// screen clear and 100ms pause before each
-void animatefile(Grid<int> grid, string frames){
-    int tickcount = stoi(frames);
-    for (int i = 0; i < tickcount; i++) {
-        tickfile(grid);
+void printgrid(Grid<int> grid) {
+    for (int r = 0; r < grid.numRows(); r++) {
+        for (int c = 0; c < grid.numCols(); c++) {
+            cout << grid[r][c];
+        }
+        cout << "/r/n";
     }
-    return;
 }
 
 // ARSHIN: implement this one
@@ -150,6 +158,17 @@ void tickfile(Grid<int> grid) {
             // compare with upper right: row-- col++
             // compare with upper / top: row--
         }
+    }
+    return;
+}
+
+// function that animates file
+// show new generations (= # of frames) with
+// screen clear and 100ms pause before each
+void animatefile(Grid<int> grid, string frames){
+    int tickcount = stoi(frames);
+    for (int i = 0; i < tickcount; i++) {
+        tickfile(grid);
     }
     return;
 }
@@ -190,7 +209,7 @@ void atq(Grid<int> grid){
             animatefile(grid, frames);
 
         } else if (usercommand == "t") {
-            tickfile(file);
+            tickfile(grid);
         }
         // ask again for a command
         atq(grid);
