@@ -113,7 +113,7 @@ void atq(string file){
     cout << "a)nimate, t)ick, q)uit?";
     cin >> usercommand;
 
-    if (usercommand == "q") {
+    if (usercommand == "q" || usercommand == "Q") {
         quitfile();
         return;
     }
@@ -197,7 +197,7 @@ int main() {
             q2 = restart();
             valid = false;
         } else {
-            cout << "Please type a word that starts with 'Y' or 'N'.";
+            cout << "Please type 'Y' or 'N'."; // Note: changed text!
             cout << "Load another file? (y/n)";
             cin >> q2;
             valid = false;
