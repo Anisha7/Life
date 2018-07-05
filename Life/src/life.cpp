@@ -1,4 +1,4 @@
-// by Anisha Jain and Arshin Jain
+// by Anisha Jain (anishax) and Arshin Jain (arshinx)
 
 #include <iostream>
 #include "console.h"
