@@ -73,7 +73,35 @@ Grid<int> filetogrid(string file) {
     // if (col < 3) { col = 3; }
 
     // create solution grid
-    Grid<int> sol = Grid<int>(3, 3);
+    if (row < 3 && col < 3) {
+        sol = Grid<int>(3, 3);
+    } else if (row >= 3 && col < 3) {
+        sol = Grid<int>(row, 3);
+    } else if (row < 3 && col >= 3) {
+        sol = Grid<int>(3, col);
+    } else {
+        sol = Grid<int>(row, col);
+    }
+
+    string dash = "-";
+    string plus = "+";
+
+    // for each row
+    for (int i = 0; i < row; i++) {
+        stream >> content;
+
+        // for each col
+        for (int j = 0; j < col; j++) {
+            cout << "j: " << content[j] << endl;
+            if (content[j] == '-') {
+                sol[i][j] = -1;
+            } else if (content[j] == '+') {
+                sol[i][j] = 0;
+            }
+        }
+    }
+
+    cout << sol << endl;
 
     // process file data
     while(!stream.eof() & content != "#") {
