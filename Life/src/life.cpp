@@ -33,6 +33,11 @@ void printfile(string file) {
 
 }
 
+// file to grid function: -1 if dead, 0 if alive goes below
+Grid filetogrid(string file) {
+
+}
+
 // ARSHIN: implement this one
 // function that animates file
 // show new generations (= # of frames) with
@@ -99,6 +104,7 @@ int main() {
     } else {
         quitfile(file);
     }
+
 
     cout << "testpass";
 
