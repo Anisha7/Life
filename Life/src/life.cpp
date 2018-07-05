@@ -129,18 +129,26 @@ void animatefile(Grid<int> grid, string frames){
 // Moves on to next generation and prints output to console
 void tickfile(Grid<int> grid) {
 
+    // Track neighbors
+    int neighbors = 0;
+
     for	(int r = 0;	r <	grid.numRows();	r++) {
         for	(int c = 0;	c <	grid.numCols();	c++) {
             // do something with grid[r][c];
 
-            // compare with upper left diagonal
-            // compare with left
-            // compare with bottom left
-            // compare with bottom
-            // compare with bottom right
-            // compare with right
-            // compare with upper right
-            // compare with upper / top
+            neighbors = 0;
+
+            // compare with upper left diagonal: row-- col--
+            if (grid[r--][c--] == 0) {
+
+            }
+            // compare with left: col--
+            // compare with bottom left: row++ col--
+            // compare with bottom: row++
+            // compare with bottom right: row++ col++
+            // compare with right: col++
+            // compare with upper right: row-- col++
+            // compare with upper / top: row--
         }
     }
     return;
