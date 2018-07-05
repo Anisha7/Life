@@ -33,6 +33,7 @@ void printfile(string file) {
 
 }
 
+// ARSHIN: implement this one
 // function that animates file
 // show new generations (= # of frames) with
 // screen clear and 100ms pause before each
@@ -40,11 +41,14 @@ void animatefile(string file, string frames){
     return;
 }
 
+// ARSHIN: comment out how/what this function should do
+// I'll implement it
 // function that ticks file
 void tickfile(string file) {
     return;
 }
 
+// ARSHIN: implement this one!
 // function that quits file
 void quitfile(string file) {
     return;
