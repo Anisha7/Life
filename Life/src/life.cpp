@@ -86,7 +86,7 @@ Grid<int> filetogrid(string file) {
     string dash = "-";
     string plus = "+";
 
-    // for each row
+    // for each row; process file data
     for (int i = 0; i < row; i++) {
         stream >> content;
 
@@ -103,16 +103,6 @@ Grid<int> filetogrid(string file) {
 
     cout << sol << endl;
 
-    // process file data
-    while(!stream.eof() & content != "#") {
-        stream >> content; // first line of file
-        if (content != "#") {
-            // break line string into individual strings
-            // add -1 or 0 to grid at that position
-            //cout << content << "\n";
-        }
-    }
-
     stream.close();
 
     return sol;
@@ -122,13 +112,17 @@ Grid<int> filetogrid(string file) {
 // function that animates file
 // show new generations (= # of frames) with
 // screen clear and 100ms pause before each
-void animatefile(string file, string frames){
+void animatefile(Grid<int> grid, string frames){
+    int tickcount = stoi(frames);
+    for (int i = 0; i < tickcount; i++){
+        tickfile();
+    }
     return;
 }
 
 // ARSHIN: implement this one
 // function that ticks file
-void tickfile(string file) {
+void tickfile(Grid<int> grid) {
     return;
 }
 
