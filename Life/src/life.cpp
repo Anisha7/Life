@@ -110,7 +110,7 @@ Grid<int> filetogrid(string file) {
 void animatefile(Grid<int> grid, string frames){
     int tickcount = stoi(frames);
     for (int i = 0; i < tickcount; i++){
-        tickfile();
+        tickfile(grid);
     }
     return;
 }
@@ -129,7 +129,7 @@ void quitfile() {
 
 // asks and processes a,t,q requests
 // COMPLETED!!
-void atq(string file){
+void atq(Grid<int> grid){
     // asks user for a, t, q
     string usercommand;
     cout << "a)nimate, t)ick, q)uit?";
@@ -154,13 +154,13 @@ void atq(string file){
                 cin >> frames;
             }
 
-            animatefile(file, frames);
+            grid = animatefile(grid, frames);
 
         } else if (usercommand == "t") {
-            tickfile(file);
+            grid = tickfile(grid);
         }
         // ask again for a command
-        atq(file);
+        atq(grid);
     }
 
     return;
@@ -176,7 +176,8 @@ void run() {
     // prints the original file
     filetogrid(file);
     printfile(file);
-    atq(file);
+    Grid<int> grid = filetogrid(file);
+    atq(grid);
     return;
 }
 
