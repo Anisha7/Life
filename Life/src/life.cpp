@@ -201,7 +201,8 @@ void run() {
     // prints the original file
     filetogrid(file);
     printfile(file);
-    atq(file);
+    Grid<int> grid = filetogrid(file);
+    atq(grid);
     return;
 }
 
