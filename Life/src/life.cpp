@@ -21,7 +21,7 @@ void printfile(string file) {
 
     // test if file is opened
     if (!stream) {
-        cout << "Unable to open that file.  Try again.";
+        cout << "Unable to open that file.  Try again." << endl;
     }
 
     string content;
@@ -43,11 +43,11 @@ void printfile(string file) {
 Grid<int> filetogrid(string file) {
     ifstream stream(file);
 
-
+    cout << "File To Grid Function: " << endl;
 
     // test if file is opened
     if (!stream) {
-        cout << "Unable to open that file.  Try again.";
+        cout << "Unable to open that file.  Try again." << endl;
     }
 
     // stores read data
@@ -76,7 +76,7 @@ Grid<int> filetogrid(string file) {
         if (content != "#") {
             // break line string into individual strings
             // add -1 or 0 to grid at that position
-            cout << content;
+            //cout << content << "\n";
         }
     }
 
