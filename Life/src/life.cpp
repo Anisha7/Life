@@ -35,7 +35,16 @@ void printfile(string file) {
 
 // file to grid function: -1 if dead, 0 if alive goes below
 Grid filetogrid(string file) {
+    string content;
 
+    while(!stream.eof() & content != "#") {
+        stream >> content; // first line of file
+        if (content != "#") {
+            // get grid dimensions
+            // break line string into individual strings
+            // add -1 or 0 to grid at that position
+        }
+    }
 }
 
 // ARSHIN: implement this one
