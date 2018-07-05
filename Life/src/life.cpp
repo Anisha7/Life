@@ -72,6 +72,7 @@ Grid<int> filetogrid(string file) {
         if (content != "#") {
             // break line string into individual strings
             // add -1 or 0 to grid at that position
+            cout << content;
         }
     }
 
@@ -108,6 +109,11 @@ void atq(string file){
     cout << "a)nimate, t)ick, q)uit?";
     cin >> usercommand;
 
+    if (usercommand == "q") {
+        quitfile();
+        return;
+    }
+
     while (usercommand != "q") {
         if (usercommand == "a") {
             string frames;
@@ -131,11 +137,6 @@ void atq(string file){
         atq(file);
     }
 
-    if (usercommand == "q") {
-        quitfile();
-        return;
-    }
-
     return;
 }
 
@@ -147,6 +148,7 @@ void run() {
     cin >> file;
 
     // prints the original file
+    filetogrid(file);
     printfile(file);
     atq(file);
     return;
