@@ -123,7 +123,7 @@ void animatefile(string file, string frames){
 
 // ARSHIN: implement this one
 // Moves on to next generation and prints output to console
-void tickfile(string file) {
+void tickfile(Grid<int> grid) {
 
     for	(int r = 0;	r <	grid.numRows();	r++) {
         for	(int c = 0;	c <	grid.numCols();	c++) {
