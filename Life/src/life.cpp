@@ -38,6 +38,11 @@ void printfile(string file) {
 
 }
 
+// Saves grid to a file
+void gridtofile() {
+
+}
+
 // ARSHIN: finish this function
 // file to grid function: -1 if dead, 0 if alive goes below
 Grid<int> filetogrid(string file) {
