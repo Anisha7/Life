@@ -87,7 +87,7 @@ Grid<int> filetogrid(string file) {
 
         // for each col
         for (int j = 0; j < col; j++) {
-            cout << "j: " << content[j] << endl;
+            //cout << "j: " << content[j] << endl;
             if (content[j] == '-') {
                 sol[i][j] = -1;
             } else if (content[j] == '+') {
@@ -96,7 +96,7 @@ Grid<int> filetogrid(string file) {
         }
     }
 
-    cout << sol << endl;
+    //cout << sol << endl;
 
     // process file data
     while(!stream.eof() & content != "#") {
