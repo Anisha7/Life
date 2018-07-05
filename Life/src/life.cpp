@@ -8,6 +8,9 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include "grid.h"
+#include <iostream>   // std::cout
+#include <string>     // std::string, std::stoi
+
 
 using namespace std;
 
@@ -50,25 +53,27 @@ Grid<int> filetogrid(string file) {
 
     // get grid dimensions
     // std:stoi convers string to int
-    int row = std::stoi( stream >> content );
-    int col = std::stoi( stream >> content );
+    // does not work: find better way
+    //row = stream >> content;
+    //col = stream >> content;
 
     // grid minimum size = 3x3
-    if (row < 3) { row = 3; }
-    if (col < 3) { col = 3; }
+    // if (row < 3) { row = 3; }
+    // if (col < 3) { col = 3; }
 
     // create solution grid
-    Grid<int> sol = Grid<int>(row, col);
+    Grid<int> sol = Grid<int>(3, 3);
 
     // process file data
     while(!stream.eof() & content != "#") {
         stream >> content; // first line of file
         if (content != "#") {
-            // get grid dimensions
             // break line string into individual strings
             // add -1 or 0 to grid at that position
         }
     }
+
+    stream.close();
 
     return sol;
 }
@@ -93,26 +98,8 @@ void quitfile(string file) {
     return;
 }
 
-
-// main function: handles all prints and runs all functions
-int main() {
-    // TODO: Finish the program!
-
-    cout << "Welcome to the CS 106B/X Game of Life!" << endl;
-    cout << "This program simulates the lifecycle of a bacterial colony." << endl;
-    cout << "Cells (X) Live and die by the following rules:" << endl;
-    cout << "* A cell with 1 or fewer neighbors dies." << endl;
-    cout << "* Locations with 2 neighbors remain stable." << endl;
-    cout << "* Locations with 3 neighbors will create life." << endl;
-    cout << "* A cell with 4 or more neighbors dies." << endl;
-
-    string file;
-    cout << "Grid input file name? ";
-    cin >> file;
-
-    // prints the original file
-    printfile(file);
-
+// asks and processes a,t,q requests
+void atq(string file){
     // asks user for a, t, q
     string usercommand;
     cout << "a)nimate, t)ick, q)uit?";
@@ -138,15 +125,72 @@ int main() {
             tickfile(file);
         }
         // ask again for a command
-        cout << "a)nimate, t)ick, q)uit?";
-        cin >> usercommand;
-    }
-    if (usercommand == "q") {
-        quitfile(file);
+        atq(file);
     }
 
-    // reached end of code
-    cout << "testpass";
+    if (usercommand == "q") {
+        quitfile(file);
+        return;
+    }
+
+    return;
+}
+
+// runs commands
+void run() {
+    string file;
+    cout << "Grid input file name? ";
+    cin >> file;
+
+    // prints the original file
+    printfile(file);
+    atq(file);
+    return;
+}
+
+string restart() {
+    string q2;
+    cout << "Load another file? (y/n)";
+    cin >> q2;
+
+    return q2;
+}
+
+// main function: handles all prints and runs all functions
+int main() {
+    // TODO: Finish the program!
+
+    cout << "Welcome to the CS 106B/X Game of Life!" << endl;
+    cout << "This program simulates the lifecycle of a bacterial colony." << endl;
+    cout << "Cells (X) Live and die by the following rules:" << endl;
+    cout << "* A cell with 1 or fewer neighbors dies." << endl;
+    cout << "* Locations with 2 neighbors remain stable." << endl;
+    cout << "* Locations with 3 neighbors will create life." << endl;
+    cout << "* A cell with 4 or more neighbors dies." << endl;
+
+    run();
+
+    // ask user to load another file
+    string q2 = restart();
+
+    bool valid = false;
+
+    while (valid == false) {
+        if (q2 == "n") {
+            cout << "Have a nice Life!";
+            valid = true;
+        } else if (q2 == "y") {
+            run();
+            q2 = restart();
+            valid = false;
+        } else {
+            cout << "Please type a word that starts with 'Y' or 'N'.";
+            cout << "Load another file? (y/n)";
+            cin >> q2;
+            valid = false;
+        }
+    }
+
 
     return 0;
 }
