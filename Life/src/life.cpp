@@ -55,11 +55,17 @@ Grid<int> filetogrid(string file) {
     ifstream stream(file);
 
     //cout << "File To Grid Function: " << endl;
-
+    //cout << file;
     // test if file is opened
-    if (!stream) {
-        cout << "Unable to open that file.  Try again." << endl;
-    }
+    //while (!stream) {
+    //    cout << "Unable to open that file.  Try again." << endl;
+    //    stream.close();
+    //    cout << "Grid input file name? ";
+    //    cin >> file;
+    //    cout << file;
+    //   // change stream to new file name
+    //    ifstream stream(file);
+    //}
 
     // stores read data
     string content;
@@ -127,9 +133,13 @@ Grid<int> filetogrid(string file) {
 void printgrid(Grid<int> grid) {
     for (int r = 0; r < grid.numRows(); r++) {
         for (int c = 0; c < grid.numCols(); c++) {
-            cout << grid[r][c];
+            if (grid[r][c] == 0) {
+                cout << "X";
+            } else {
+                cout << "-";
+            }
         }
-        cout << "/r/n";
+        cout << "\r\n";
     }
 }
 
@@ -143,58 +153,66 @@ Grid<int> tickfile(Grid<int> grid) {
 
     // Track neighbors
     int neighbors = 0;
-
-    for(int r = 0;r <grid.numRows();r++) {
-        for(int c = 0;c <grid.numCols();c++) {
+    int rows = grid.numRows();
+    int cols = grid.numCols();
+    //cout << "in tickfile";
+    for(int r = 0;r < rows - 1; r++) {
+        for(int c = 0;c < cols - 1; c++) {
             // do something with grid[r][c];
-
+            //cout << "current" << r;
             neighbors = 0;
 
-            // compare with upper left diagonal: row-- col--
-            if (grid[r--][c--] == 0) {
-                neighbors++;
+            if (r > 0 && c > 0) {
+                // compare with upper left diagonal: row-- col--
+                if (grid[r-1][c-1] == 0) {
+                    //cout << "in first if" << r;
+                    neighbors++;
+                }
             }
             // compare with left: col--
-            if (grid[r][c--] == 0) {
+            if (c > 0 && grid[r][c-1] == 0) {
                 neighbors++;
             }
             // compare with bottom left: row++ col--
-            if (grid[r++][c--] == 0) {
+            if (r < rows-1 && c > 0 && grid[r+1][c-1] == 0) {
                 neighbors++;
             }
             // compare with bottom: row++
-            if (grid[r++][c] == 0) {
+            if (r < rows-1 && grid[r+1][c] == 0) {
                 neighbors++;
             }
             // compare with bottom right: row++ col++
-            if (grid[r++][c++] == 0) {
+            if (r < rows-1 && c < cols-1 && grid[r+1][c+1] == 0) {
                 neighbors++;
             }
             // compare with right: col++
-            if (grid[r][c++] == 0) {
+            if (c < cols-1 && grid[r][c+1] == 0) {
                 neighbors++;
             }
             // compare with upper right: row-- col++
-            if (grid[r--][c++] == 0) {
+            if (c < cols-1 && r > 0 && grid[r-1][c+1] == 0) {
                 neighbors++;
             }
             // compare with upper / top: row--
-            if (grid[r--][c] == 0) {
+            if (r > 0 && grid[r-1][c] == 0) {
                 neighbors++;
             }
 
+            //cout << "made it through if statements";
             // Update Grid with new life
             if (neighbors <= 1) {
                 newGrid[r][c] = -1; // bacteria dies
-            } else if (neighbors == 2) {
-                // stable
             } else if (neighbors == 3) {
                 newGrid[r][c] = 0;
-            } else {
+            } else if (neighbors > 3) {
                 newGrid[r][c] = -1;
             }
+            //cout << "made it to end of update" << r << c;
+
         }
     }
+
+    //cout << "end of for loop in tickfile";
 
     printgrid(newGrid);
 
@@ -208,6 +226,7 @@ Grid<int> animatefile(Grid<int> grid, string frames){
     int tickcount = stoi(frames);
     for (int i = 0; i < tickcount; i++) {
         grid = tickfile(grid);
+        cout << "\r\n";
     }
 
     //printgrid(grid);
@@ -233,38 +252,69 @@ void atq(Grid<int> grid){
         return;
     }
 
-    while (usercommand != "q") {
-        if (usercommand == "a") {
-            string frames;
+    //while (usercommand != "q") {
+    if (usercommand == "a") {
+        string frames;
+        cout << "How many frames?";
+        cin >> frames;
+
+        // check if valid int
+        while (!isdigit(frames[0])) {
+            cout << "Illegal integer format. Try again.";
+            cout << "\r\n";
             cout << "How many frames?";
             cin >> frames;
-
-            // check if valid int
-            while (!isdigit(frames[0])) {
-                cout << "Illegal integer format. Try again.";
-                cout << "\r\n";
-                cout << "How many frames?";
-                cin >> frames;
-            }
-
-            grid = animatefile(grid, frames);
-
-        } else if (usercommand == "t") {
-            grid = tickfile(grid);
         }
-        // ask again for a command
-        atq(grid);
+
+        grid = animatefile(grid, frames);
+
+    } else if (usercommand == "t") {
+        grid = tickfile(grid);
     }
+    // ask again for a command
+    //cout << "call atq again";
+    atq(grid);
+    //}
+
+    //cout << "end of atq";
 
     return;
 }
 
+bool validfile(string file) {
+    bool res;
+    ifstream boom(file);
+
+    if (!boom) {
+        res = false;
+    } else {
+        res = true;
+    }
+    boom.close();
+    return res;
+}
 // runs commands
 // COMPLETED!!
 void run() {
     string file;
     cout << "Grid input file name? ";
     cin >> file;
+
+    // test
+
+    //cout << "File To Grid Function: " << endl;
+    //cout << file;
+    // test if file is opened
+    bool valid = validfile(file);
+    while (!valid) {
+        cout << "Unable to open that file.  Try again." << endl;
+        cout << "Grid input file name? ";
+        cin >> file;
+        valid = validfile(file);
+    }
+
+    //cout << "end in run";
+
 
     // prints the original file
     filetogrid(file);
@@ -299,9 +349,11 @@ int main() {
 
     run();
 
+    //cout << "end of run --> onto restart";
     // ask user to load another file
     string q2 = restart();
 
+    //cout << "end of restart --> onto checking";
     bool valid = false;
 
     while (valid == false) {
