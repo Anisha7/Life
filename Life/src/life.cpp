@@ -1,5 +1,10 @@
 // by Anisha Jain (anishax@stanford) and Arshin Jain (arshin@stanford)
 
+// TODO: Does not print after tick (EXPECTED < Invalid choice; please try again.)
+// TODO: Need to clear console after 100 ms and tick
+// TODO: space after asking for input
+// TODO:
+
 #include <iostream>
 #include "console.h"
 #include <fstream> // standard library pkg for files
@@ -15,7 +20,7 @@
 using namespace std;
 
 // function that prints file
-// COMPLETED!!
+
 void printfile(string file) {
     ifstream stream(file);
 
@@ -49,23 +54,11 @@ void printfile(string file) {
 
 }
 
-// ARSHIN: finish this function
 // file to grid function: -1 if dead, 0 if alive goes below
 Grid<int> filetogrid(string file) {
     ifstream stream(file);
 
     //cout << "File To Grid Function: " << endl;
-    //cout << file;
-    // test if file is opened
-    //while (!stream) {
-    //    cout << "Unable to open that file.  Try again." << endl;
-    //    stream.close();
-    //    cout << "Grid input file name? ";
-    //    cin >> file;
-    //    cout << file;
-    //   // change stream to new file name
-    //    ifstream stream(file);
-    //}
 
     // stores read data
     string content;
@@ -81,8 +74,6 @@ Grid<int> filetogrid(string file) {
     //cout << "Row: " << row << ", Col: " << col << "\n" << endl;
 
     // grid minimum size = 3x3
-    // if (row < 3) { row = 3; }
-    // if (col < 3) { col = 3; }
 
     // create solution grid
     if (row < 3 && col < 3) {
@@ -113,8 +104,6 @@ Grid<int> filetogrid(string file) {
         }
     }
 
-    //cout << sol << endl;
-
     // process file data
     while(!stream.eof() & content != "#") {
         stream >> content; // first line of file
@@ -143,7 +132,6 @@ void printgrid(Grid<int> grid) {
     }
 }
 
-// ARSHIN: implement this one
 // Moves on to next generation and prints output to console
 Grid<int> tickfile(Grid<int> grid) {
 
@@ -155,7 +143,8 @@ Grid<int> tickfile(Grid<int> grid) {
     int neighbors = 0;
     int rows = grid.numRows();
     int cols = grid.numCols();
-    //cout << "in tickfile";
+
+    //
     for(int r = 0;r < rows - 1; r++) {
         for(int c = 0;c < cols - 1; c++) {
             // do something with grid[r][c];
@@ -198,7 +187,6 @@ Grid<int> tickfile(Grid<int> grid) {
                 neighbors++;
             }
 
-            //cout << "made it through if statements";
             // Update Grid with new life
             if (neighbors <= 1) {
                 newGrid[r][c] = -1; // bacteria dies
@@ -207,12 +195,9 @@ Grid<int> tickfile(Grid<int> grid) {
             } else if (neighbors > 3) {
                 newGrid[r][c] = -1;
             }
-            //cout << "made it to end of update" << r << c;
 
         }
     }
-
-    //cout << "end of for loop in tickfile";
 
     printgrid(newGrid);
 
@@ -225,22 +210,21 @@ Grid<int> tickfile(Grid<int> grid) {
 Grid<int> animatefile(Grid<int> grid, string frames){
     int tickcount = stoi(frames);
     for (int i = 0; i < tickcount; i++) {
+        clearConsole();
+        pause(100);
         grid = tickfile(grid);
         cout << "\r\n";
     }
 
-    //printgrid(grid);
     return grid;
 }
 
 // function that quits file
-// COMPLETED!!
 void quitfile() {
     return;
 }
 
 // asks and processes a,t,q requests
-// COMPLETED!!
 void atq(Grid<int> grid){
     // asks user for a, t, q
     string usercommand;
@@ -252,8 +236,8 @@ void atq(Grid<int> grid){
         return;
     }
 
-    //while (usercommand != "q") {
-    if (usercommand == "a") {
+    //
+    if (usercommand == "a" || usercommand == "A") {
         string frames;
         cout << "How many frames?";
         cin >> frames;
@@ -268,15 +252,11 @@ void atq(Grid<int> grid){
 
         grid = animatefile(grid, frames);
 
-    } else if (usercommand == "t") {
+    } else if (usercommand == "t" && usercommand == "T") {
         grid = tickfile(grid);
     }
     // ask again for a command
-    //cout << "call atq again";
     atq(grid);
-    //}
-
-    //cout << "end of atq";
 
     return;
 }
@@ -293,17 +273,13 @@ bool validfile(string file) {
     boom.close();
     return res;
 }
+
 // runs commands
-// COMPLETED!!
 void run() {
     string file;
     cout << "Grid input file name? ";
     cin >> file;
 
-    // test
-
-    //cout << "File To Grid Function: " << endl;
-    //cout << file;
     // test if file is opened
     bool valid = validfile(file);
     while (!valid) {
@@ -312,9 +288,6 @@ void run() {
         cin >> file;
         valid = validfile(file);
     }
-
-    //cout << "end in run";
-
 
     // prints the original file
     filetogrid(file);
@@ -325,7 +298,6 @@ void run() {
 }
 
 // Asks to restart game
-// COMPLETED!!
 string restart() {
     string q2;
     cout << "Load another file? (y/n)";
@@ -335,9 +307,7 @@ string restart() {
 }
 
 // main function: handles all prints and runs all functions
-// COMPLETED!!
 int main() {
-    // TODO: Finish the program!
 
     cout << "Welcome to the CS 106B/X Game of Life!" << endl;
     cout << "This program simulates the lifecycle of a bacterial colony." << endl;
@@ -345,11 +315,10 @@ int main() {
     cout << "* A cell with 1 or fewer neighbors dies." << endl;
     cout << "* Locations with 2 neighbors remain stable." << endl;
     cout << "* Locations with 3 neighbors will create life." << endl;
-    cout << "* A cell with 4 or more neighbors dies." << endl;
+    cout << "* A cell with 4 or more neighbors dies.\r\n" << endl;
 
     run();
 
-    //cout << "end of run --> onto restart";
     // ask user to load another file
     string q2 = restart();
 
@@ -368,6 +337,7 @@ int main() {
             cout << "Please type 'Y' or 'N'."; // Note: changed text!
             cout << "Load another file? (y/n)";
             cin >> q2;
+            // Need to load/validate file
             valid = false;
         }
     }
