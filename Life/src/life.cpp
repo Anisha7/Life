@@ -3,7 +3,6 @@
 // TODO: Does not print after tick (EXPECTED < Invalid choice; please try again.)
 // TODO: Need to clear console after 100 ms and tick
 // TODO: space after asking for input
-// TODO:
 
 #include <iostream>
 #include "console.h"
@@ -209,11 +208,14 @@ Grid<int> tickfile(Grid<int> grid) {
 // screen clear and 100ms pause before each
 Grid<int> animatefile(Grid<int> grid, string frames){
     int tickcount = stoi(frames);
+
     for (int i = 0; i < tickcount; i++) {
+        // clear console and pause before ticking
         clearConsole();
-        pause(100);
+        // tick
         grid = tickfile(grid);
-        cout << "\r\n";
+        cout << "\r\n"; // new line
+        pause(100);
     }
 
     return grid;
